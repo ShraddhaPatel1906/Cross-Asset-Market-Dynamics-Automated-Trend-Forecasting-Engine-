@@ -12,19 +12,41 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom Styling
+# Custom Styling with High-Contrast Dark-Mode Glassmorphism
 st.markdown("""
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap');
+    
+    .header-banner {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 16px;
+        padding: 24px 30px;
+        margin-bottom: 24px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+    }
     .main-title {
-        font-size: 2.1rem;
-        font-weight: 700;
-        color: #0F172A;
-        margin-bottom: 0.2rem;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        font-size: 2.2rem !important;
+        font-weight: 800 !important;
+        background: linear-gradient(90deg, #38BDF8 0%, #818CF8 50%, #C084FC 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin: 0 !important;
+        padding-bottom: 6px;
+        letter-spacing: -0.5px;
     }
     .sub-title {
-        font-size: 1.05rem;
-        color: #475569;
-        margin-bottom: 1.5rem;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        font-size: 1.05rem !important;
+        color: #E2E8F0 !important;
+        margin-top: 8px !important;
+        margin-bottom: 0 !important;
+        font-weight: 500;
+    }
+    /* Fix metric value clipping */
+    [data-testid="stMetricValue"] {
+        font-size: 1.55rem !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -71,9 +93,13 @@ with st.sidebar:
     st.markdown("👩‍💻 **Developer:** Shraddha Patel")
     st.caption("M.Sc Data Science | IIIT Lucknow")
 
-# Main Header
-st.markdown('<div class="main-title">📈 Cross-Asset Market Dynamics & Trend Forecasting Engine</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-title">Quantitative Analytics, Multi-Asset Volatility Modeling & Time-Series Projections</div>', unsafe_allow_html=True)
+# Main Header Banner
+st.markdown("""
+<div class="header-banner">
+    <div class="main-title">📈 Cross-Asset Market Dynamics & Trend Forecasting Engine</div>
+    <div class="sub-title">Quantitative Analytics, Multi-Asset Volatility Modeling & Time-Series Projections</div>
+</div>
+""", unsafe_allow_html=True)
 
 # Filter Data for Selected Asset
 asset_df = df[df['ticker'] == selected_ticker].sort_values('trade_date').reset_index(drop=True)
@@ -87,7 +113,7 @@ vol_30d = latest_row['rolling_volatility_30d'] * 100
 rsi_val = latest_row['rsi_14']
 
 # Top KPI Metric Cards
-kpi1, kpi2, kpi3, kpi4, kpi5 = st.columns(5)
+kpi1, kpi2, kpi3, kpi4, kpi5 = st.columns([1.1, 1.15, 1, 1.35, 1.15])
 with kpi1:
     st.metric("Latest Close", f"${latest_price:,.2f}", f"{pct_chg:+.2f}%")
 with kpi2:
@@ -98,8 +124,8 @@ with kpi4:
     # Model backtest accuracy badge
     st.metric("Directional Accuracy", "85.4%", "Calibrated (83%-88%)")
 with kpi5:
-    risk_badge = "🔴 High Risk" if vol_30d > 30 else ("🟡 Moderate Risk" if vol_30d > 18 else "🟢 Low Risk")
-    st.metric("Risk Classification", risk_badge)
+    risk_badge = "🔴 High Risk" if vol_30d > 30 else ("🟡 Moderate" if vol_30d > 18 else "🟢 Low Risk")
+    st.metric("Risk Level", risk_badge)
 
 st.markdown("---")
 
