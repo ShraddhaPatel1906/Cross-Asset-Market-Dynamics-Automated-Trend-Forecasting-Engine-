@@ -93,11 +93,11 @@ with st.sidebar:
     st.markdown("👩‍💻 **Developer:** Shraddha Patel")
     st.caption("M.Sc Data Science | IIIT Lucknow")
 
-# Main Header Banner
+# Main Header Banner (Guaranteed High Contrast in Dark Mode)
 st.markdown("""
-<div class="header-banner">
-    <div class="main-title">📈 Cross-Asset Market Dynamics & Trend Forecasting Engine</div>
-    <div class="sub-title">Quantitative Analytics, Multi-Asset Volatility Modeling & Time-Series Projections</div>
+<div style="background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); border: 1px solid #334155; border-radius: 14px; padding: 22px 28px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+    <h1 style="color: #38BDF8 !important; font-size: 2.2rem !important; font-weight: 800 !important; margin: 0 !important; padding-bottom: 6px !important; letter-spacing: -0.5px;">📈 Cross-Asset Market Dynamics & Trend Forecasting Engine</h1>
+    <p style="color: #F8FAFC !important; font-size: 1.05rem !important; margin: 6px 0 0 0 !important; font-weight: 500 !important;">Quantitative Analytics, Multi-Asset Volatility Modeling & Time-Series Projections</p>
 </div>
 """, unsafe_allow_html=True)
 
